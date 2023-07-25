@@ -1,6 +1,9 @@
+import 'package:app_rev/Drawer.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter/src/widgets/placeholder.dart';
+
+import 'api.dart';
 
 class HomePage extends StatelessWidget {
   const HomePage({super.key});
@@ -153,6 +156,7 @@ class HomePage extends StatelessWidget {
         child: GestureDetector(
       onTap: () {
         print('teste');
+        getApi();
       },
       child: Card(
         clipBehavior: Clip.hardEdge,
@@ -262,71 +266,198 @@ class HomePage extends StatelessWidget {
     );
   }
 
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      drawer: Drawer(
-        child: Text('Desenvolvendo'),
-      ),
-      body: Column(
-        children: [
-          Stack(
-            children: <Widget>[
-              Positioned(
-                top: 0.0,
-                left: 0.0,
-                right: 0.0,
-                child: AppBar(
-                  backgroundColor: Color.fromRGBO(255, 0, 0, 0.925),
-                  toolbarHeight: 120,
-                  title: Padding(
-                    padding: const EdgeInsets.only(bottom: 40),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Padding(
-                          padding: const EdgeInsets.only(right: 60),
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              Icon(Icons.filter_hdr_sharp),
-                              SizedBox(
-                                width: 8,
-                              ),
-                              Text(
-                                'Santander',
-                              ),
-                            ],
-                          ),
-                        ),
-                        Text(
-                          'Olá, Igor Gabriel',
-                          style: TextStyle(fontSize: 15),
-                          textAlign: TextAlign.start,
-                        ),
-                        Text(
-                          'Ag: 3548 C/C: 220118-45',
-                          style: TextStyle(fontSize: 11),
-                        ),
-                      ],
-                    ),
-                  ),
-                  elevation: 0,
+  Widget _Cartaoonline() {
+    return Padding(
+      padding: const EdgeInsets.all(8.0),
+      child: Center(
+        child: Container(
+          width: 300,
+          height: 50,
+          child: Card(
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(10),
+              side: BorderSide(
+                color: Color.fromRGBO(255, 0, 0, 1),
+              ),
+            ),
+            child: Container(
+              child: Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Text(
+                  'Cartão Online',
+                  style: TextStyle(
+                      color: Color.fromRGBO(255, 0, 0, 100), fontSize: 18),
+                  textAlign: TextAlign.center,
                 ),
               ),
-              Padding(
-                padding: const EdgeInsets.only(top: 90),
-                child: _body(),
-              ),
-            ],
+            ),
+          ),
+        ),
+      ),
+    );
+  }
+
+  Widget poupancaInvest() {
+    return Padding(
+      padding: const EdgeInsets.all(8.0),
+      child: Center(
+          child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Padding(
+            padding: const EdgeInsets.only(left: 6),
+            child: Text(
+              'Poupança e Investimentos',
+              style: TextStyle(fontWeight: FontWeight.bold),
+            ),
           ),
           SizedBox(
             height: 8,
           ),
-          _cartao(),
-          _cartao2(),
-          _emprestimo(),
+          Container(
+            width: 310,
+            height: 60,
+            child: Card(
+              elevation: 8,
+              child: Column(
+                children: [
+                  Row(
+                    children: [
+                      Icon(
+                        Icons.attach_money_sharp,
+                      ),
+                      Text('Pounpança'),
+                    ],
+                  )
+                ],
+              ),
+            ),
+          ),
         ],
+      )),
+    );
+  }
+
+  Widget precisaAjuda() {
+    return Padding(
+      padding: const EdgeInsets.only(left: 10, right: 10),
+      child: Center(
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Padding(
+              padding: const EdgeInsets.only(left: 10),
+              child: Text(
+                'Precisa de Ajuda ?',
+                style: TextStyle(fontWeight: FontWeight.bold),
+              ),
+            ),
+            Container(
+              width: 310,
+              height: 100,
+              child: Card(
+                elevation: 8,
+                child: Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Column(
+                    children: [
+                      Row(
+                        children: [
+                          Icon(
+                            Icons.help_outline_sharp,
+                          ),
+                          SizedBox(
+                            width: 8,
+                          ),
+                          Text(
+                            'Fale com a Gente',
+                          ),
+                        ],
+                      ),
+                      SizedBox(
+                        height: 8,
+                      ),
+                      Text(
+                          'Tire dúvias, encontre soluções, ativa o Whatsapp e muito mais para te ajudar'),
+                    ],
+                  ),
+                ),
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      drawer: DrawerPrincipal(),
+      body: SingleChildScrollView(
+        child: Column(
+          children: [
+            Stack(
+              children: <Widget>[
+                Positioned(
+                  top: 0.0,
+                  left: 0.0,
+                  right: 0.0,
+                  child: AppBar(
+                    backgroundColor: Color.fromRGBO(255, 0, 0, 0.925),
+                    toolbarHeight: 120,
+                    title: Padding(
+                      padding: const EdgeInsets.only(bottom: 40),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Padding(
+                            padding: const EdgeInsets.only(right: 60),
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                Icon(Icons.filter_hdr_sharp),
+                                SizedBox(
+                                  width: 8,
+                                ),
+                                Text(
+                                  'Santander',
+                                ),
+                              ],
+                            ),
+                          ),
+                          Text(
+                            'Olá, Igor Gabriel',
+                            style: TextStyle(fontSize: 15),
+                            textAlign: TextAlign.start,
+                          ),
+                          Text(
+                            'Ag: 3548 C/C: 220118-45',
+                            style: TextStyle(fontSize: 11),
+                          ),
+                        ],
+                      ),
+                    ),
+                    elevation: 0,
+                  ),
+                ),
+                Padding(
+                  padding: const EdgeInsets.only(top: 90),
+                  child: _body(),
+                ),
+              ],
+            ),
+            SizedBox(
+              height: 8,
+            ),
+            _cartao(),
+            _cartao2(),
+            _Cartaoonline(),
+            _emprestimo(),
+            poupancaInvest(),
+            precisaAjuda(),
+          ],
+        ),
       ),
     );
   }
