@@ -1,12 +1,15 @@
 import 'package:app_rev/Drawer.dart';
+import 'package:app_rev/controller/home_Page_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter/src/widgets/placeholder.dart';
+import 'package:get/get.dart';
 
 import 'api.dart';
 
 class HomePage extends StatelessWidget {
-  const HomePage({super.key});
+  HomePage({super.key});
+  final controller = Get.put(HomePageController());
 
   Widget _body() {
     return Column(
@@ -148,6 +151,53 @@ class HomePage extends StatelessWidget {
           ),
         ),
       ],
+    );
+  }
+
+  Widget _SaldoDisponivel() {
+    return Center(
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          Card(
+            elevation: 8,
+            child: Container(
+              width: 300,
+              height: 60,
+              child: Column(
+                children: [
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Row(
+                        children: [
+                          Icon(Icons.attach_money_outlined),
+                          SizedBox(
+                            width: 8,
+                          ),
+                          Text('Saldo disponível'),
+                        ],
+                      ),
+                      Padding(
+                          padding: const EdgeInsets.only(left: 8),
+                          child: GestureDetector(
+                              child: Icon(Icons.keyboard_arrow_down_sharp),
+                              onTap: () {
+                                bool valor = controller.controle.value;
+                                controller.MostraSaldo(valor);
+                              }))
+                    ],
+                  ),
+                  Obx(() => controller.controle.value == true
+                      ? Container(
+                          height: 30, child: Column(children: [Text('R')]))
+                      : SizedBox()),
+                ],
+              ),
+            ),
+          ),
+        ],
+      ),
     );
   }
 
@@ -450,6 +500,7 @@ class HomePage extends StatelessWidget {
             SizedBox(
               height: 8,
             ),
+            _SaldoDisponivel(),
             _cartao(),
             _cartao2(),
             _Cartaoonline(),
