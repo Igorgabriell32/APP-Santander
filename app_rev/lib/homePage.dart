@@ -159,40 +159,83 @@ class HomePage extends StatelessWidget {
       child: Row(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          Card(
-            elevation: 8,
-            child: Container(
-              width: 300,
-              height: 60,
-              child: Column(
-                children: [
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Row(
+          Obx(
+            () => Card(
+              elevation: 8,
+              child: AnimatedContainer(
+                duration: Duration(seconds: 1),
+                curve: Curves.linear,
+                width: 300,
+                onEnd: () {
+                  controller.Onend();
+                },
+                height: controller.tamanhoCard.value.toDouble(),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
-                          Icon(Icons.attach_money_outlined),
-                          SizedBox(
-                            width: 8,
+                          Row(
+                            children: [
+                              Icon(Icons.attach_money_outlined),
+                              SizedBox(
+                                width: 8,
+                              ),
+                              Text('Saldo disponível'),
+                            ],
                           ),
-                          Text('Saldo disponível'),
+                          Padding(
+                              padding: const EdgeInsets.only(left: 8),
+                              child: GestureDetector(
+                                  child: Icon(Icons.keyboard_arrow_down_sharp),
+                                  onTap: () {
+                                    bool valor = controller.controle.value;
+                                    controller.MostraSaldo(valor);
+                                  }))
                         ],
                       ),
-                      Padding(
-                          padding: const EdgeInsets.only(left: 8),
-                          child: GestureDetector(
-                              child: Icon(Icons.keyboard_arrow_down_sharp),
-                              onTap: () {
-                                bool valor = controller.controle.value;
-                                controller.MostraSaldo(valor);
-                              }))
-                    ],
-                  ),
-                  Obx(() => controller.controle.value == true
-                      ? Container(
-                          height: 30, child: Column(children: [Text('R')]))
-                      : SizedBox()),
-                ],
+                    ),
+                    Obx(() => controller.controleonend.value == true
+                        ? Container(
+                            height: 80,
+                            child: Padding(
+                              padding: const EdgeInsets.only(left: 8, top: 8),
+                              child: Column(children: [
+                                Text('R\$ 2.578,32',
+                                    style: TextStyle(
+                                      fontWeight: FontWeight.bold,
+                                      fontSize: 20,
+                                    ),
+                                    textAlign: TextAlign.left),
+                                SizedBox(
+                                  width: 8,
+                                ),
+                                Text(
+                                  'Entenda seu saldo',
+                                  style: TextStyle(
+                                      color: Color.fromRGBO(255, 0, 0, 1),
+                                      decoration: TextDecoration.underline),
+                                ),
+                                SizedBox(
+                                  height: 1,
+                                ),
+                                Divider(
+                                  height: 1,
+                                ),
+                                Text(
+                                  'Ver extrato',
+                                  style: TextStyle(
+                                    color: Color.fromRGBO(255, 0, 0, 1),
+                                  ),
+                                ),
+                              ]),
+                            ))
+                        : const SizedBox.shrink()),
+                  ],
+                ),
               ),
             ),
           ),
